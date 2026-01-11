@@ -2,7 +2,6 @@
 
 A Flask-based web application featuring an intelligent chatbot designed to assist students and visitors of **SIES (Nerul) College of Arts, Science, and Commerce**. The chatbot uses Natural Language Processing (NLP) and fuzzy string matching to answer common queries related to admissions, courses, facilities, placements, and campus life.
 
-This project is developed for educational, demonstration, and portfolio purposes.
 
 ---
 
