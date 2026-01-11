@@ -102,6 +102,13 @@ On first run, the application automatically downloads required NLTK datasets suc
 
 ---
 
+## 🚀 Live Demo
+
+Experience the deployed chatbot here:  
+https://flask-chatbot-webapp.onrender.com/
+
+---
+
 ## 🧠 How It Works
 
 1. User input is sent from the frontend to the Flask backend via a POST request.
