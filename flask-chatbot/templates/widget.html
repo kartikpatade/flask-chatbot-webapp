@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIES Chatbot Widget</title>
+  <style>
+    :root {
+      --sies-orange: #f97316;
+      --sies-blue: #0056A4;
+      --bot-bg: #f0f2f5;
+      --user-bg: var(--sies-orange);
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    body {
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .message {
+      padding: 10px 15px;
+      border-radius: 18px;
+      line-height: 1.4;
+      max-width: 80%;
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .bot {
+      background: var(--bot-bg);
+      color: #1c1e21;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .user {
+      background: var(--user-bg);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        background-color: #b0b3b8;
+        border-radius: 50%;
+        display: inline-block;
+        animation: bounce 1.3s infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      font-size: 15px;
+    }
+    .chat-input input:focus {
+        border-color: var(--sies-blue);
+        box-shadow: 0 0 0 2px rgba(0, 86, 164, 0.2);
+    }
+    .chat-input button {
+      margin-left: 8px;
+      padding: 0 18px;
+      border: none;
+      background: var(--sies-blue);
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    .chat-input button:hover {
+      background: #003d73;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1.0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div id="chat-messages" class="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your question..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatMessages = document.getElementById("chat-messages");
+    const userInput = document.getElementById("user-input");
+
+    function addMessage(text, sender) {
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message", sender);
+      // Use innerHTML to correctly render line breaks from the bot
+      const formattedText = text.replace(/\n/g, '<br>');
+      msgDiv.innerHTML = formattedText;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function showTypingIndicator() {
+        const indicatorDiv = document.createElement("div");
+        indicatorDiv.classList.add("message", "bot", "typing-indicator");
+        indicatorDiv.id = "typing-indicator";
+        indicatorDiv.innerHTML = '<span></span><span></span><span></span>';
+        chatMessages.appendChild(indicatorDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+        const indicator = document.getElementById("typing-indicator");
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+
+    async function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      addMessage(message, "user");
+      userInput.value = "";
+      showTypingIndicator();
+
+      try {
+        const response = await fetch("/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+        const data = await response.json();
+        hideTypingIndicator();
+        addMessage(data.reply, "bot");
+      } catch (err) {
+        hideTypingIndicator();
+        addMessage("⚠️ Error: Could not connect to the server.", "bot");
+      }
+    }
+
+    window.onload = function() {
+      addMessage("👋 Hi! I’m the SIES College Chatbot. How can I help you today?", "bot");
+    };
+    
+    userInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>

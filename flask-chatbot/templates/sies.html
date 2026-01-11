@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIES College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* Needed for mobile menu positioning */
+        }
+
+        #left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        nav a {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            text-decoration: none;
+            padding: 15px 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        #menu-toggle {
+            display: none;
+            /* Hidden by default on desktop */
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        #sec1 {
+            width: 100%;
+            height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #sec1 img.background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        #written {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            /* Adjusted for better mobile padding */
+            max-width: 1000px;
+        }
+
+        #written h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        #written h3 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-top: -10px;
+            font-weight: 400;
+        }
+
+        #written button {
+            background-color: orangered;
+            color: white;
+            display: block;
+            margin: 30px auto 0 auto;
+            width: 150px;
+            height: 45px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #written button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* --- News Ticker --- */
+        #news {
+            display: flex;
+            background-color: orangered;
+            color: black;
+            padding: 8px;
+            position: relative;
+        }
+
+        #news .icon {
+            margin: auto 15px;
+            font-size: 24px;
+            color: white;
+        }
+
+        marquee {
+            align-self: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        #box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            text-align: left;
+            align-items: center;
+        }
+
+        #box2 {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        #box1-media {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        #box1-media img,
+        #box1-media video {
+            width: 50%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        #numbers {
+            display: flex;
+            justify-content: flex-start;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .number-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #numbers h2 {
+            font-size: 50px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        #numbers sup {
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        #numbers span {
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .read-more-btn {
+            width: 140px;
+            height: 40px;
+            background-color: orangered;
+            border: 0;
+            font-size: 16px;
+            color: white;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* --- Global Campus Section --- */
+        picture {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        picture img {
+            width: 100%;
+            max-width: 350px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* --- Alumni Section --- */
+        .alumni {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .card {
+            background: orangered;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 2px 2px 2px black;
+            color: white;
+            text-align: left;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .top img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .rating {
+            color: yellow;
+            font-size: 18px;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: orangered;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .footer-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            background: #fff;
+            color: #0b0c3c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            text-decoration: none;
+        }
+
+        /* --- Chatbot --- */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: #0056A4;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-btn:hover {
+            transform: translateY(-3px);
+            background: #f97316;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #002147, #0056A4);
+            color: white;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .chatbot-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chatbot-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- 📱 MOBILE RESPONSIVENESS 📱 --- */
+        @media (max-width: 768px) {
+
+            /* --- Responsive Navigation (Forceful Override) --- */
+            #menu-toggle {
+                display: block !important;
+                /* Force hamburger icon to show */
+                z-index: 100;
+            }
+
+            #right {
+                display: none !important;
+                /* Force nav links to hide */
+                flex-direction: column;
+                position: absolute;
+                top: 65px;
+                /* Position below nav bar */
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            #right.show {
+                display: flex !important;
+                /* Force menu to show when active */
+            }
+
+            #right a {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #f0f0f0;
+                width: 100%;
+            }
+
+            /* --- Adjust General Layout --- */
+            .content-section {
+                padding: 40px 15px;
+            }
+
+            /* --- Fix Global Campus Images Layout --- */
+            picture img {
+                max-width: none;
+                /* Remove max-width on mobile */
+                width: 100%;
+                /* Make image full width */
+                height: auto;
+                /* Adjust height automatically */
+            }
+
+
+            /* --- Adjust "Why Choose Us" Section --- */
+            #box {
+                text-align: center;
+                /* Center align text content */
+            }
+
+            #box1-media {
+                flex-direction: column;
+                /* Stack image and video */
+            }
+
+            #box1-media img,
+            #box1-media video {
+                width: 100%;
+                /* Make media full width */
+                height: 300px;
+                /* Adjust height for mobile */
+            }
+
+            #box2 h1 {
+                font-size: 36px;
+                /* Reduce heading size */
+            }
+
+            #numbers {
+                justify-content: center;
+                /* Center the number blocks */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: calc(100% - 30px);
+                right: 15px;
+                bottom: 80px;
+                height: 70vh;
+            }
+
+            #written h1 {
+                font-size: 1.8rem;
+            }
+
+            #written h3 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div id="left">
+            <img src="https://siesascn.edu.in/images/sies_ascn_logo.jpg" alt="SIES Logo" width="100px" height="50px">
+            <h2>SIES</h2>
+        </div>
+        <div id="right">
+            <a href="#">Home</a>
+            <a href="#">About us</a>
+            <a href="#">Admission</a>
+            <a href="#">Contact us</a>
+            <a href="#">Courses</a>
+        </div>
+        <button id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div id="news">
+        <i class="fas fa-volume-up icon"></i>
+        <marquee>Admission For 1st Year 2024-2025 Will Open On 25th June For BSc Data Science And BSc Artificial Intelligence</marquee>
+    </div>
+
+    <div id="sec1">
+        <img src="/main/058_NWU_DeWitt-Science_Ext_1134.webp" alt="College Campus" class="background">
+        <div id="written">
+            <h1>SIES(Nerul) College of Arts, Science and Commerce (Autonomous)</h1>
+            <h3>We are dedicated to creating a better society by educating our future generations</h3>
+            <button>Learn More</button>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div id="box">
+            <div id="box1-media">
+                <img src="https://media.istockphoto.com/id/2105516746/photo/confident-student-holding-books-in-library.jpg?s=612x612&w=0&k=20&c=fOsYfzTKXdcLbaup4KEuOVWYeL7T6JTWjSG7QNE2VuE="
+                    alt="Student in Library">
+                <video src="https://videos.pexels.com/video-files/5940721/5940721-hd_1920_1080_25fps.mp4" autoplay loop
+                    muted playsinline></video>
+            </div>
+            <div id="box2">
+                <h5 style="color: orangered;font-family:Georgia, 'Times New Roman', Times, serif;">WHY CHOOSE US</h5>
+                <h1 style="color: blue; font-family:Georgia, 'Times New Roman', Times, serif; font-size: 50px;">Why Sies
+                    College</h1>
+                <p style="font-size: 20px; color: black;">
+                    We strive to foster an environment of excellence and innovation, equipping our students with the
+                    knowledge and skills necessary to excel in the global engineering landscape.
+                </p>
+                <div id="numbers">
+                    <div class="number-block">
+                        <h2>25 <sup>+</sup></h2><span>Years Of Experience</span>
+                    </div>
+                    <div class="number-block">
+                        <h2>30K <sup>+</sup></h2><span>Students Across Globe</span>
+                    </div>
+                </div>
+                <button class="read-more-btn">Read More</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h1>Our Global Campus</h1>
+        <picture>
+            <img src="/main/college1building.avif" alt="College Building 1">
+            <img src="https://nbkterracotta.com/wp-content/uploads/2020/03/NBK633A0807_web.jpg"
+                alt="College Building 2">
+            <img src="https://redwoodcity.stanford.edu/sites/g/files/sbiybj19146/files/styles/breakpoint_2xl_2x/public/media/image/3k4a7214_0.jpg?itok=ADA5wz9N"
+                alt="College Building 3">
+        </picture>
+    </div>
+
+    <div class="content-section">
+        <h1>Alumni Speaks</h1>
+        <h4 style="color: gray;">Hear from our proud alumni</h4>
+        <div class="alumni">
+            <div class="card">
+                <div class="top">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Alumni Christine Berkley">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque aliquet turpis nulla.</p>
+                </div>
+                <h3>Christine Berkley</h3>
+                <div class="rating">★★★★☆</div>
+            </div>
+            <div class="card">
+                <div class="top">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alumni David Byer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque aliquet turpis nulla.</p>
+                </div>
+                <h3>David Byer</h3>
+                <div class="rating">★★★★☆</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <h2>Contact Us</h2>
+                <p>SIES College of Arts, Science and Commerce<br>Jain Society, Sion West,<br>Mumbai 400 022. INDIA</p>
+                <p><strong>Tel No:</strong><br>+91 22 2407 2729</p>
+                <p><strong>Dr. Satish Sarfare</strong><br>Incharge Principal<br>Email: principalascs@sies.edu.in<br>satishs@sies.edu.in
+                </p>
+                <p><strong>Website:</strong><br><a href="https://www.siesascs.edu.in"
+                        target="_blank">www.siesascs.edu.in</a></p>
+                <div class="social-icons"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                            class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a
+                        href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h2>Useful Links</h2>
+                <ul>
+                    <li><a href="#">ERP</a></li>
+                    <li><a href="#">Alumni</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Intranet</a></li>
+                    <li><a href="#">Code of Conduct for Students</a></li>
+                    <li><a href="#">Paytm Payment Terms & Condition</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h2>Google Map Location</h2><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.817498452892!2d73.027529!3d19.071763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3d82b302c7b%3A0x86780718507c304d!2sSIES%20(Nerul)%20College%20of%20Arts%2C%20Science%20%26%20Commerce!5e0!3m2!1sen!2sin!4v1694883495821!5m2!1sen!2sin" width="100%"
+                    height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </footer>
+
+    <button id="chatbot-btn" class="chatbot-btn"><i class="fas fa-robot"></i> Chat with us</button>
+
+    <div id="chatbot-window" class="chatbot-window">
+        <div class="chatbot-header">
+            <h3>SIES Chatbot</h3>
+            <button id="chatbot-close">✖</button>
+        </div>
+        <iframe src="/widget" class="chatbot-frame"></iframe>
+    </div>
+
+    <script>
+        // --- Chatbot Functionality ---
+        const chatbotBtn = document.getElementById("chatbot-btn");
+        const chatbotWindow = document.getElementById("chatbot-window");
+        const chatbotClose = document.getElementById("chatbot-close");
+        chatbotBtn.addEventListener("click", () => {
+            chatbotWindow.style.display = "flex";
+        });
+        chatbotClose.addEventListener("click", () => {
+            chatbotWindow.style.display = "none";
+        });
+
+        // --- Hamburger Menu Functionality ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const rightNav = document.getElementById('right');
+        menuToggle.addEventListener('click', () => {
+            rightNav.classList.toggle('show');
+        });
+    </script>
+</body>
+
+</html>
