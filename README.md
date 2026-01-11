@@ -96,14 +96,3 @@ http://127.0.0.1:5000/
 - UI/UX improvements
 
 ---
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-## Author
-
-Kartik Patade  
-Data Science Student
