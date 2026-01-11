@@ -1,4 +1,5 @@
 Flask
 fuzzywuzzy
 python-Levenshtein
+gunicorn
 nltk
