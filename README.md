@@ -1,98 +1,133 @@
-# Flask Chatbot Web Application
+# SIES Nerul College Chatbot 🎓
 
-A Flask-based chatbot web application that provides an interactive chat interface using a clean frontend–backend architecture. This project demonstrates how Python Flask can be used to build dynamic web applications with HTML templates, static assets, and server-side routing.
+A Flask-based web application featuring an intelligent chatbot designed to assist students and visitors of **SIES (Nerul) College of Arts, Science, and Commerce**. The chatbot uses Natural Language Processing (NLP) and fuzzy string matching to answer common queries related to admissions, courses, facilities, placements, and campus life.
 
-This project is created for learning, demonstration, and portfolio purposes.
-
----
-
-## Features
-
-- Interactive chatbot interface
-- Backend developed using Python Flask
-- Template-driven frontend using Jinja2
-- Static file handling for CSS and JavaScript
-- Clean and modular project structure
-- Easy local setup and execution
+This project is developed for educational, demonstration, and portfolio purposes.
 
 ---
 
-## Project Structure
+## 🚀 Features
 
-flask-chatbot-webapp/
-- app.py               Main Flask application
-- requirements.txt     Project dependencies
-- templates/           HTML templates
-- static/              CSS, JavaScript, and assets
-- main/                Application logic modules
-- README.md
-- .gitignore
-
----
-
-## How the Application Works
-
-1. The Flask server is started using app.py
-2. Routes handle incoming HTTP requests
-3. User input is processed on the backend
-4. Responses are generated and sent back to the frontend
-5. Templates dynamically render chatbot responses
+- Intelligent intent recognition using fuzzy string matching to handle typos and variations in user queries
+- NLP-based text preprocessing using NLTK for better keyword extraction
+- Dual user interface:
+  - College website–style homepage with an embedded floating chat widget
+  - Standalone full-page chatbot interface for focused interaction
+- Rich knowledge base capable of answering questions about:
+  - Admission timelines (FY 2025–26)
+  - Undergraduate and postgraduate courses
+  - Campus infrastructure (labs, library, gymkhana)
+  - Placements and recruiters
+  - Contact information and general college details
 
 ---
 
-## Installation and Setup
+## 🛠️ Tech Stack
 
-Clone the repository:
+**Backend**
+- Python
+- Flask
+
+**Frontend**
+- HTML5
+- CSS3
+- JavaScript
+
+**NLP & Logic**
+- fuzzywuzzy (string matching)
+- python-Levenshtein (performance optimization)
+- nltk (tokenization and stop-word removal)
+
+---
+
+## 📂 Project Structure
+
+chatbott2/
+- app.py                Main Flask application with routes and chatbot logic  
+- requirements.txt      Python dependencies  
+- static/  
+  - style.css            Styling for chatbot interfaces  
+  - script.js            Frontend logic and API calls  
+- templates/  
+  - sies.html            College-style landing page with embedded chatbot widget  
+  - index.html           Standalone full-page chatbot interface  
+  - widget.html          Chat widget iframe content  
+- main/                 Images and media assets (college building, logo, etc.)
+
+---
+
+## ⚙️ Installation and Setup
+
+### 1. Clone the Repository
 
 git clone https://github.com/kartikpatade/flask-chatbot-webapp.git  
 cd flask-chatbot-webapp  
 
-Install dependencies:
+---
+
+### 2. Create a Virtual Environment (Recommended)
+
+**Windows**
+python -m venv venv  
+venv\Scripts\activate  
+
+**Mac / Linux**
+python3 -m venv venv  
+source venv/bin/activate  
+
+---
+
+### 3. Install Dependencies
 
 pip install -r requirements.txt  
 
-Run the application:
+This installs Flask, fuzzywuzzy, python-Levenshtein, and nltk.
+
+---
+
+### 4. Run the Application
 
 python app.py  
 
-Open in browser:
-
-http://127.0.0.1:5000/
+On first run, the application automatically downloads required NLTK datasets such as `punkt` and `stopwords`.
 
 ---
 
-## Technologies Used
+### 5. Access the Application
 
-- Python
-- Flask
-- HTML
-- CSS
-- JavaScript
+- College homepage with chatbot widget:  
+  http://127.0.0.1:5000/
 
----
-
-## Usage
-
-- Run the Flask application locally
-- Open the provided URL in your browser
-- Interact with the chatbot through the web interface
+- Standalone chatbot interface:  
+  http://127.0.0.1:5000/chatbot
 
 ---
 
-## Limitations
+## 🧠 How It Works
 
-- Designed for local execution
-- Not hosted on GitHub Pages
-- Requires Flask-compatible hosting for deployment
+1. User input is sent from the frontend to the Flask backend via a POST request.
+2. The input text is cleaned by removing punctuation and stop words using NLTK.
+3. Fuzzy string matching compares the processed input against predefined intent patterns.
+4. The intent with the highest similarity score is selected.
+5. If the confidence score is low, a fallback response suggests valid topics to the user.
 
 ---
 
-## Future Enhancements
+## 🚫 Limitations
 
-- Improve chatbot intelligence
-- Add database integration
+- Designed primarily for local execution
+- Not hosted on GitHub Pages (Flask backend required)
+- Knowledge base is rule-based and not ML-trained
+
+---
+
+## 🔮 Future Enhancements
+
+- Improve chatbot intelligence with ML or transformer-based models
+- Add database integration for dynamic content
+- Admin dashboard for updating FAQs
 - User authentication
 - Cloud deployment (Render / Railway / PythonAnywhere)
-- UI/UX improvements
+- UI and accessibility improvements
 
 ---
